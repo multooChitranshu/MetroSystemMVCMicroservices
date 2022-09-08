@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Showing previous transactions</title>
+<link th:href="@{/styles/logged.css}" rel="stylesheet">
+</head>
+<body>
+<h1>Metro System</h1>
+<hr>
+<h2 th:text="'Welcome! Card ID: '+${session.card.cardId}+' is logged in. Balance : Rs.'+${session.card.balance}"></h2>
+<hr>
+<h2>All previous transactions : </h2><br>
+<table border="1">
+	<tr>
+		<th> Source Station Name</th>
+		<th> Date And Time Of BOARDING </th>
+		<th> Destination Station Name </th>
+		<th> Date And Time Of EXIT </th>
+		<th> Fare </th>
+		
+		<tr th:each="tr : ${allTransactions}">
+		<td th:text="${tr.sourceStationName}"></td>
+		<td th:text="${tr.dateAndTimeOfBoarding}"></td>
+		<td th:text="${tr.destinationStationName}"></td>
+		<td th:text="${tr.dateAndTimeOfExit}"></td>
+		<td th:text="${tr.fare}"></td>
+	</tr>
+		
+	</tr>
+</table><br>
+<h3 th:text="${message}"></h3><br>
+<a href="/menuDecider">Go back to menu page</a><br>
+<a href="/logout">!!! Sign Out !!!</a>
+
+</body>
+</html>

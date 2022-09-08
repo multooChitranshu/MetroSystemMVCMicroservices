@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Metro System Login Page</title>
+<link th:href="@{/styles/logged.css}" rel="stylesheet">
+</head>
+<body>
+<h1>Welcome to our Metro System</h1>
+<hr>
+<h2>Existing User:</h2><br><br>
+<form action="#" method="post" th:action="@{./loggedInCard}" th:object="${cardCredentials}">
+Choose Metro-Card ID : <select th:field="*{cardId}">
+<option th:each="cardId : ${allCardIds}" th:value="${cardId}" th:label="${cardId}"></option>
+</select> <br><br>
+Enter Password       : <input type="password" th:field="*{password}"><br><br>
+<input type="submit" value="Login"><br><br>
+</form>
+
+<br>
+<br>
+<h2 th:text="${message}"></h2>
+<a href="/">Go back to HOME page</a>
+
+</body>
+</html>

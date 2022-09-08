@@ -1,0 +1,19 @@
+@charset "ISO-8859-1";
+body{
+	background-color: rgb(255, 255, 128);
+}
+
+h1{
+	color: #8000ff;
+}
+
+hr{
+	color: gray;
+}
+
+h2{
+	color: navy;
+}
+h3{
+	color: #ff0080;
+}
