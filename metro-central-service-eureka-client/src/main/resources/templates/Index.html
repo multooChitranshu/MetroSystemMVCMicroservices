@@ -4,18 +4,22 @@
 <meta charset="ISO-8859-1">
 <title>Metro Station Menu</title>
 <link th:href="@{/styles/logged.css}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<body>
-<h1>Metro System</h1>
-<hr>
-<h2 th:text="'Welcome! Card ID: '+${session.card.cardId}+' is logged in. Balance : Rs.'+${session.card.balance}"></h2>
-<hr>
-<h2>Please choose from these:</h2>
-<a href="/swipeIn">Swipe In</a><br><br>
-<a href="/rechargeCard">Recharge Card</a><br><br>
-<a href="/showAllPreviousTransactions">Show all previous transactions</a><br><br>
-<a href="/logout">!!! Sign Out !!!</a>
+<body class="banner">
+<div class="content">
+
+<div class=loginform>
+<h2   th:text="'Welcome to metro! Card ID: '+${session.card.cardId}+' is logged in. Balance : Rs.'+${session.card.balance}" ></h2>
+<br>
+
+<a href="/swipeIn"><button type="button"><span></span>Swipe In</button></a>
+<a href="/rechargeCard"><button type="button"><span></span>Recharge</button></a><br><br>
+<a href="/showAllPreviousTransactions"><button type="button"><span></span>All previous transactions</button></a>
+<a href="/logout"><button type="button"><span></span>!!! Sign Out !!!</button></a>
 <h2 th:text="${message}"></h2>
+</div>
+</div>
 
 </body>
 </html>

@@ -43,8 +43,6 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		String message="";
 		long cardId=cardCredentials.getCardId();
-//		System.out.println("\n*******"+cardId);
-//		System.out.println("$$$$$"+metroSystemServiceImpl.getCardById(cardId));
 		if(metroSystemServiceImpl.getCardById(cardId).getCardId()!=0) {
 			message="Failed! This Aadhar ID "+cardId+" is already registered! Please try again, or go back to login";
 		}

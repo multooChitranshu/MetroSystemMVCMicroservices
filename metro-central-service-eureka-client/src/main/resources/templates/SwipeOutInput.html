@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!-- 
+!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
@@ -18,8 +19,45 @@ Choose Station : <select name="stationName">
 <input type="submit" value="Swipe Out"><br>
 </form>
 <br><br>
-<a href="./">Go to Main Page</a><br><br>
+<a href="/swipedInIndex">Go to Menu Page</a><br><br>
 <a href="/logout">!!! Sign Out !!!</a>
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Swipe In</title>
+<link th:href="@{/styles/logged.css}" rel="stylesheet">
+</head>
+<body class="banner">
+<div class="content">
+
+<div class=loginform>
+
+
+<h2 class="title">Swipe Out</h2>
+<hr>
+
+<form action="/swipeOut/Input" method="post">
+<div class="field">
+
+Choose Station : <select name="stationName">
+<option th:each="station:${allStations}" th:value="${station}" th:label="${station}"></option>
+</select><br><br>
+
+</div>
+
+<button type="submit"><span></span> Swipe-Out </button>
+</form>
+<br><br>
+<a href="/index"><button type="button"><span></span> Menu Page </button></a><br><br>
+<a href="/logout"><button type="button"><span></span> SIGN OUT</button></a><br><br>
+</div>
+</div>
 
 </body>
 </html>

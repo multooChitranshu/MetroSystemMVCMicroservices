@@ -30,6 +30,9 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	@Autowired
 	StationService stationService;
+	
+	@Autowired
+	CardService cardService;
 
 	@Override
 	public TransactionList getAllTransactionsForId(long cardId) {
@@ -61,6 +64,9 @@ public class TransactionServiceImpl implements TransactionService {
 		long cardId=card.getCardId();
 		String result="";
 		String sourceStation=getLastTransaction(cardId).getSourceStationName();
+		if(stationService.getNoOfStationsCovered(sourceStation, destinationStation)==-1) {
+			return "Oops! Recharge failed! Please try again";
+		}
 		double fare=0, fine=0;
 //		if source and destination are same, a fine of Rs. 30 is levied
 		if(sourceStation.equals(destinationStation)) {
@@ -73,11 +79,10 @@ public class TransactionServiceImpl implements TransactionService {
 		fine+=calculateFine(cardId, sourceStation, destinationStation);
 		double totalCharge=fare+fine;
 		if(card.getBalance()>=totalCharge) {
-			if(transactionDao.updateWhileSwipeOut(cardId, destinationStation, totalCharge)>0) {
-				
-				HttpHeaders headers = new HttpHeaders();
-				HttpEntity<MetroCard> entity = new HttpEntity<MetroCard>(card);
-				boolean recharged=restTemplate.exchange("http://card-service/cards/"+(-totalCharge), HttpMethod.PUT, entity, Boolean.class).getBody();
+//			in the following line I have called rechargeCard(card, 0) to make sure to update transactionDao
+//			only when the card-service is up.
+			if(cardService.rechargeCard(card, 0) && transactionDao.updateWhileSwipeOut(cardId, destinationStation, totalCharge)>0) {
+				boolean recharged=cardService.rechargeCard(card, totalCharge);
 				if(recharged) {
 					result="Swipe-Out successful! Rs."+totalCharge+" was deducted.";
 					if(fine>0) {
@@ -85,16 +90,17 @@ public class TransactionServiceImpl implements TransactionService {
 					}
 				}
 				else {
-					result="Oops! Recharge failed! Please try again";
+					result="Oops! Swipe-out unsuccessful! Please try again";
 				}
 				return result;
 			}
-			result="Insufficient balance. Please recharge. Fare: Rs."+fare+", Fine levied: Rs."+fine+" Current balance: Rs"+card.getBalance();
+			else {
+				return "Oops! Swipe-out unsuccessful! Please try again";
+			}	
 		}
 		else {
-			result="Swipe-out unsuccessful! Invalid station ID";
+			return "Insufficient balance. Please recharge. Fare: Rs."+fare+", Fine levied: Rs."+fine+" Current balance: Rs"+card.getBalance();
 		}
-		return result;
 	}
 
 	

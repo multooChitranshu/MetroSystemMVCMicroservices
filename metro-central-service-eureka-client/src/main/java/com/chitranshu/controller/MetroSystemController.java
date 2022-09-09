@@ -31,6 +31,17 @@ public class MetroSystemController {
 		return new ModelAndView("SwipeInInput");
 	}
 	
+	@RequestMapping("/index")
+	public ModelAndView indexController() {
+		return new ModelAndView("Index");
+	}
+	
+	@RequestMapping("/swipedInIndex")
+	public ModelAndView swipedInIndexController() {
+		return new ModelAndView("SwipedInIndex");
+	}
+	
+	
 	@RequestMapping("/swipeIn/Input")
 	public ModelAndView swipeInInputController(@RequestParam("stationName") String stationName, HttpSession session) {
 		ModelAndView modelAndView=new ModelAndView();
@@ -76,11 +87,13 @@ public class MetroSystemController {
 	public ModelAndView validateAmountAndRechargeCardController(@RequestParam double money,HttpSession session) {
 		if(money>0) {
 			MetroCard card=(MetroCard)session.getAttribute("card");
-			metroServiceImpl.rechargeCard(card,money);
-			String message="Rs."+money+" added successfully!";
-			MetroCard updatedCard=metroServiceImpl.getCardById(card.getCardId());
-			session.setAttribute("card", updatedCard);
-			return new ModelAndView("Display","message", message);
+			if(metroServiceImpl.rechargeCard(card,money)) {
+				String message="Rs."+money+" added successfully!";
+				MetroCard updatedCard=metroServiceImpl.getCardById(card.getCardId());
+				session.setAttribute("card", updatedCard);
+				return new ModelAndView("Display","message", message);
+			}
+			return new ModelAndView("RechargeCard","rechargeCard", "Recharge Failed! Server down... please try again after some time");
 		}
 		return new ModelAndView("RechargeCard","rechargeCard", "Recharge Failed! Please enter a positive amount...");
 	}
