@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 <head>
@@ -21,6 +22,47 @@ Enter Password       : <input type="password" th:field="*{password}"><br><br>
 <br>
 <h2 th:text="${message}"></h2>
 <a href="/">Go back to HOME page</a>
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Metro System Login Page</title>
+<link th:href="@{/styles/logged.css}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="banner">
+<div class="content">
+
+<div class=loginform>
+
+<h2 class="title">Existing User:</h2><br>
+<form action="#" method="post" th:action="@{./loggedInCard}" th:object="${cardCredentials}">
+<div class="field">
+<span class="fa fa-user"></span>
+Choose Metro-Card ID : <select th:field="*{cardId}">
+<option th:each="cardId : ${allCardIds}" th:value="${cardId}" th:label="${cardId}"></option>
+</select> <br><br>
+<!-- 
+<input type="number" th:field="*{cardId}" placeholder="Card-Id" ><br><br>
+</select> <br><br>
+ -->
+</div>
+<div class="field">
+<span class="fa fa-lock"></span>
+<input type="password" th:field="*{password}" placeholder="Password"><br><br>
+</div>
+<button type="submit"><span></span> Login </button>
+</form>
+<br>
+<div class="or">Or</div>
+<a href="/"><button type="button"><span></span> Main Page </button></a>
+</div>
+</div>
 
 </body>
 </html>

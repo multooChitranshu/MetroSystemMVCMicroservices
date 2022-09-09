@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 <head>
@@ -19,3 +20,40 @@ Enter Password : <input type="password" th:field="*{password}"><br><br>
 <a href="/">Go back to Main Page</a>
 </body>
 </html>
+-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Metro System</title>
+<link th:href="@{/styles/logged.css}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="banner">
+<div class="content">
+
+<div class=loginform>
+<h2 class="title">New Card Registration</h2>
+
+<form action="#" method="post" th:action="@{./saveCard}" th:object="${cardCredentials}">
+<div class="field">
+<span class="fa fa-user"></span>
+<input type="number" th:field="*{cardId}" placeholder="Addhar-Id" ><br><br>
+</div>
+<div class="field">
+<span class="fa fa-lock"></span>
+<input type="password" th:field="*{password}" placeholder="password"><br>
+</div>
+<button type="submit"><span></span> Register </button>
+</form>
+<h3 th:text="${message}" ></h3><br>
+<div class="or">Or</div>
+<a href="/"><button type="button"><span></span> Main Page </button></a>
+</div>
+</div>
+
+</body>
+</html>
+ -->
